@@ -10,12 +10,12 @@ dotenv.config();
  */
 import router from './router';
 import {
+    log,
     getRandom, // Получение случайного значения в диапазоне от min до max
     calculateStatistics, // Подсчет статистики поиска
     secToMinToHoursConvert // Приведение времени в секундах к минутам и часам
 } from './utils';
 import store from './store'; // Импорт экземпляра класса менеджера состояния
-import { log } from './utils'; // Функция обработки и записи логов
 
 /**
  * @class Lifecycle
@@ -103,6 +103,11 @@ class Lifecycle {
 
                         if (Number(Object.keys(this.singleQueryData.engines)[i]) === 4 && store.getIsCaptcha() === true) {
                             log('Пропускаю поиск в Yandex.News из-за случая капчи'); // Вывод информации в лог
+
+                            setTimeout(() => {
+                                store.setIsCaptcha(false) // Пауза в поиске новостей на News.Yandex.ru для сброса капчи
+                            }, getRandom(300000, 1000000))
+
                             continue; // Переход к следующей итерации цикла
                         }
 

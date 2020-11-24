@@ -54,6 +54,7 @@ class Store {
         this.engines = data
     }
     setIsCaptcha(data) {
+        log('Капча сброшена')
         this.isCaptcha = data
     }
     setCaptchaCounter() {

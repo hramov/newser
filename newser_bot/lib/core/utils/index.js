@@ -26,7 +26,7 @@ export async function sleep(ms, msg = "") {
 }
 
 export function getRandom(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+    return Number(Math.floor(Math.random() * (max - min)) + min)
 }
 
 export function secToMinToHoursConvert(seconds) {
