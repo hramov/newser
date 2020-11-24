@@ -26,5 +26,5 @@ function main {
     esac
 }
 
-./togit.sh
+# ./togit.sh
 main

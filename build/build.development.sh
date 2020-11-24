@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd newser_client
-npm run build:dev
+# npm run build:dev
 
 # docker build -t newser_client .
 # docker tag newser_client 23792803/newser_client:development_$(date +'%d.%m.%Y')

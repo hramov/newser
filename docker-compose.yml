@@ -29,7 +29,7 @@ services:
             - QUEUE_FILE=queries
 
     bot:
-        image: 23792803/newser_bot:staging_18.11.2020
+        image: 23792803/newser_bot:development_24.11.2020
         restart: always
         volumes:
             - "/srv/logs/newser_bot:/usr/src/app/logs"
