@@ -1,0 +1,17 @@
+test:
+    image: newser_mercury
+    container_name: mercury_newser
+    # restart: always
+    volumes:
+        - "/srv/logs/newser_mercury:/usr/src/app/logs"
+    environment:
+        - RABBIT_HOST=10.19.19.4
+        - RABBIT_PORT=5672
+        - RABBIT_USER=admin
+        - RABBIT_PASSWORD=admin
+        - SERVER_HOST=10.13.7.65
+        - SERVER_PORT=5000
+        - QUEUE_FILE=queries
+        - ERROR=news_error
+        - PROCESSED=news_processed
+        - UNPROCESSED=news_unprocessed
