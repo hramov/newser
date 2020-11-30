@@ -48,23 +48,23 @@ services:
         depends_on: 
             - server
 
-    # mercury:
-    #     image: 23792803/newser_mercury:development_18.11.2020
-    #     restart: always
-    #     volumes:
-    #         - "/srv/logs/newser_mercury:/usr/src/app/logs"
-    #     environment:
-    #         - RABBIT_HOST=10.19.19.4
-    #         - RABBIT_PORT=5672
-    #         - RABBIT_USER=admin
-    #         - RABBIT_PASSWORD=admin
-    #         - SERVER_HOST=server
-    #         - SERVER_PORT=5000
-    #         - QUEUE_FILE=queries
-    #         - ERROR=news_error
-    #         - PROCESSED=news_processed
-    #         - UNPROCESSED=news_unprocessed
-    #     links:
-    #         - "server:server"
-    #     depends_on:
-    #         - server
+    mercury:
+        image: 23792803/newser_mercury:development_18.11.2020
+        restart: always
+        volumes:
+            - "/srv/logs/newser_mercury:/usr/src/app/logs"
+        environment:
+            - RABBIT_HOST=10.19.19.4
+            - RABBIT_PORT=5672
+            - RABBIT_USER=admin
+            - RABBIT_PASSWORD=admin
+            - SERVER_HOST=server
+            - SERVER_PORT=5000
+            - QUEUE_FILE=queries
+            - ERROR=news_error
+            - PROCESSED=news_processed
+            - UNPROCESSED=news_unprocessed
+        links:
+            - "server:server"
+        depends_on:
+            - server
