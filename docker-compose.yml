@@ -1,6 +1,5 @@
 version: "3"
 services:
-
     server:
         image: 23792803/newser_server:staging_18.11.2020
         container_name: server_newser
@@ -27,7 +26,6 @@ services:
             - WEB_APP_SOURCE=web
             - PUPPETEER_QUEUE=puppeteer_bot
             - QUEUE_FILE=queries
-
     bot:
         image: 23792803/newser_bot:development_24.11.2020
         restart: always
