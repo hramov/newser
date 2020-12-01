@@ -1,4 +1,4 @@
 vscode
 vscode.pub
-newser_server/logs
+newser_server/logs/*
 newser_mercury/logs
