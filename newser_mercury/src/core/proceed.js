@@ -37,12 +37,11 @@ function handle(message, result) {
 }
 
 export async function start(message) {
-    let url = message.href
+    let url = encodeURI(message.href)
     const userAgent = userAgents[getRandom(0, userAgents.length)]
     log(userAgent)
 
     let customExtractor = await store.getExtractor(new URL(url).hostname)
-        // log(JSON.stringify(customExtractor))
 
     if (customExtractor.length > 0 && customExtractor[0].settings_mercury) {
         log(customExtractor[0].settings_mercury)
@@ -51,7 +50,7 @@ export async function start(message) {
         log(`Не смог найти экстракторы для ${url}`)
     }
 
-    await Mercury.parse(message.href, {
+    await Mercury.parse(url, {
         contentType: 'text',
         headers: {
             'User-Agent': userAgent

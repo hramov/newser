@@ -37,6 +37,7 @@ class Store {
         this.socket = data
     }
     async setNews(data, queue) {
+        console.log(data)
         await axios.post(`http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}/api/sendDataToRabbitMQ`, {
             queue: queue,
             data: data
