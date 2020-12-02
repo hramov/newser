@@ -12,9 +12,10 @@ function handle(message, result) {
     log('Начинаю обработку сообщения')
 
     message.content = result.content
-    message.content = RemoveJavaScriptFunctions(message.content)
-    message.content = RemoveEmptyStrings(message.content)
-    message.content = RemoveMiltipleSpaces(message.content)
+
+    // message.content = RemoveJavaScriptFunctions(message.content)
+    // message.content = RemoveEmptyStrings(message.content)
+    // message.content = RemoveMiltipleSpaces(message.content)
 
     /**
      * Some other

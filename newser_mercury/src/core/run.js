@@ -23,7 +23,10 @@ export async function run() {
         } else {
             if (message.error) {
                 log(`${message.message}`)
-                await store.setNews(message.message, process.env.ERROR)
+                await store.setNews({
+                    href: message.href,
+                    message: message.message
+                }, process.env.ERROR)
             } else {
                 await store.setNews(message, process.env.PROCESSED)
             }
