@@ -16,14 +16,14 @@ function handle(message, result) {
     message.content = RemoveEmptyStrings(message.content)
     message.content = RemoveMiltipleSpaces(message.content)
 
-    if (message.content.length < 100) {
-        return null
-    }
-
     /**
      * Some other
      * cleaners
      */
+    
+    if (message.content.length < 100) {
+        return null
+    }
 
     message.lead_img = result.lead_image_url
 

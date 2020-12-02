@@ -10,7 +10,13 @@ export async function run() {
 
         log(`Обрабатываю ${message.title} (${message.href})`)
 
-        message = await start(message)
+        try {
+            message = await start(message)    
+        } catch (err) {
+            log(err)
+            message = null
+        }
+
         if (message === null || message === undefined) {
             log(`Следующее сообщение...`)
             return
