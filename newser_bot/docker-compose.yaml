@@ -15,3 +15,4 @@ test:
         - PUPPETEER_QUEUE=puppeteer_bot
         - UNPROCESSED_QUEUE=news_unprocessed
         - QUEUE_FILE=queries
+        - CUSTOM_NAME=Poiskit
