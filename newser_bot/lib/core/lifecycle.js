@@ -166,7 +166,7 @@ class Lifecycle {
         this.singleQueryData.page.setUserAgent(userAgent); // Установка случайного user-agent из массива агентов
 
         let result = await router(this.singleQueryData); // Запуск процесса обработки запроса в определенном новостном агрегаторе
-        console.log(result)
+        // console.log(result)
         const resNum = Number(result.length); // Запись количество полученых новостей
 
         if (!resNum || resNum === 0) { // Проверка количества полученных новостей в массиве result
