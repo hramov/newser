@@ -7,7 +7,7 @@
         "test": "*.js"
     },
     "scripts": {
-        "start": "node --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node .",
+        "start:dev": "node --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node .",
         "test:date": "node --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node ./unit_tests/date_convert.js"
     },
     "dependencies": {

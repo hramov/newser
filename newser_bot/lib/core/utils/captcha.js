@@ -12,7 +12,7 @@ export async function solve(page, engine = 0) {
         log(`Капча! ${new Date()}`)
         store.setCaptchaCounter()
         store.setIsCaptcha(true)
-
+        throw new Error('Капча')
         // await anticaptcha_implementation(page)
 
     } else {
