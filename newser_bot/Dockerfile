@@ -9,4 +9,4 @@ RUN apt-get update && apt-get install -y gnupg curl libx11-xcb1 gconf-service li
 COPY package.json ./
 RUN npm install && npm install puppeteer --unsafe-perm --allow-root
 COPY . .
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]
