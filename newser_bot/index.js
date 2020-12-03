@@ -27,7 +27,7 @@ console.log(`Подключаюсь к сокет-серверу http://${host}:
 const socket = io.connect(`http://${host}:${port}`); // Подключение к сокет-серверу по заданным host и port
 
 store.setSocket(socket); // Запись экземпляра подключения в менеджер состояния
-socket.emit("who_am_i", `puppeteer_bot_${process.env.CUSTOM_NAME}`); // Вызов события аутентификации подключенного клиента
+socket.emit("who_am_i", `puppeteer_${process.env.CUSTOM_NAME}`); // Вызов события аутентификации подключенного клиента
 
 log('Ожидаю команды СТАРТ', 0); // Вывод информации в лог
 
