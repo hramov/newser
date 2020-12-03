@@ -32,7 +32,7 @@ class Lifecycle {
                 "--unhandled-rejections=strict",
                 "--disable-notifications"
             ],
-            headless: false, // Графический интерфейс (true - отключен, false - включен).
+            headless: true, // Графический интерфейс (true - отключен, false - включен).
             // Запуск с графическим режимом только от имени пользователя
             ignoreHTTPSErrors: true,
             ignoreDefaultArgs: ["--disable-extensions"],
