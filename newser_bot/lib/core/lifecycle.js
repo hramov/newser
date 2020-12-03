@@ -195,16 +195,16 @@ class Lifecycle {
             `Начинаю обработку поискового запроса: ${this.singleQueryData.query} (${this.singleQueryData.pages} страниц(ы))`
         ); // Вывод информации в лог
 
-        const proxyIndex = getRandom(0, config.common.proxyAddrs.length)
-        const proxyAddr = config.common.proxyAddrs[proxyIndex]
-        const proxyPort = config.common.proxyPorts[proxyIndex]
+        // const proxyIndex = getRandom(0, config.common.proxyAddrs.length)
+        // const proxyAddr = config.common.proxyAddrs[proxyIndex]
+        // const proxyPort = config.common.proxyPorts[proxyIndex]
         
-        log(`Обрабатываю запрос через прокси: http://${proxyAddr}:${proxyPort}`)
+        // log(`Обрабатываю запрос через прокси: http://${proxyAddr}:${proxyPort}`)
 
         const userAgent = JSON.stringify({
             "user-agent": config.common.userAgents[getRandom(0, config.common.userAgents.length)], // Получение случайного user-agent
-            "proxy-addr": proxyAddr,
-            "proxy-port": proxyPort,
+            // "proxy-addr": proxyAddr,
+            // "proxy-port": proxyPort,
         })
         this.singleQueryData.page.setUserAgent(userAgent); // Установка случайного user-agent из массива агентов
 
