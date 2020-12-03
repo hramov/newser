@@ -15,3 +15,4 @@ test:
         - ERROR=news_error
         - PROCESSED=news_processed
         - UNPROCESSED=news_unprocessed
+        - CUSTOM_NAME=402

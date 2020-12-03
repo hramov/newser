@@ -13,7 +13,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const socket = io.connect(`http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
 store.setSocket(socket)
 
-socket.emit("who_am_i", 'mercury_parser');
+socket.emit("who_am_i", `mercury_${process.env.CUSTOM_NAME}`);
 log('Ожидаю команды СТАРТ', 0)
 
 socket.on('start', (data) => {
