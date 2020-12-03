@@ -1,4 +1,4 @@
-import dateFormer from './../lib/core/utils/date'
+import dateFormer from '../lib/core/utils/date'
 
 let dates = [
     '9 ноября, 12:59',
