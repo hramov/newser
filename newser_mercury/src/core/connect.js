@@ -25,9 +25,13 @@ export async function getData(queue, callback) {
                     log(`Ожидаю новых собщений`)
                     channel.consume(queue, async function(msg) {
                         if (store.getIsGo()) {
-                            await callback(JSON.parse(msg.content.toString()))
-                            await sleep(1000)
-                            channel.ack(msg)
+                            try {
+                                await callback(JSON.parse(msg.content.toString()))
+                                await sleep(1000)
+                                channel.ack(msg)
+                            } catch (err) {
+                                log(`Error: ${err}`)
+                            }
                         } else {
                             log('Парсер остановлен', 0)
                             store.setStatus(0)

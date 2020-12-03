@@ -30,8 +30,7 @@ class Lifecycle {
             args: [
                 "--no-sandbox",
                 "--unhandled-rejections=strict",
-                "--disable-notifications",
-                "--proxy-server=62.33.207.202:3128"
+                "--disable-notifications"
             ],
             headless: false, // Графический интерфейс (true - отключен, false - включен).
             // Запуск с графическим режимом только от имени пользователя
