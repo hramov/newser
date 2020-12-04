@@ -1,1 +1,0 @@
-# Newser Telegram Bot

@@ -52,23 +52,6 @@ export function checkConfigFile() {
     }
 }
 
-export function getQueryFromFile() {
-    let filePath = `${appRoot}/data`
-    let data = JSON.parse(fs.readFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, 'utf-8'))
-    if (data.length === 0) {
-        log('Внутренняя очередь пуста. Обрабатываю данные с сервера')
-        return null
-    }
-    let result = {
-        query: data[0].query,
-        id_request: Number(data[0].id_request),
-        engines: data[0].engines
-    }
-    data = data.filter(query => query.query !== result.query)
-    fs.writeFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, JSON.stringify(data))
-    return result
-}
-
 export function checkQueueFile() {
     let filePath = `${appRoot}/data`
     try {
@@ -86,8 +69,25 @@ export function checkQueueFile() {
     }
 }
 
+export function getQueryFromFile() {
+    let filePath = `${appRoot}/data`
+    let data = JSON.parse(fs.readFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, 'utf-8'))
+    if (data.length === 0) {
+        log('Внутренняя очередь пуста. Обрабатываю данные с сервера')
+        return null
+    }
+    let result = {
+        query: data[0].query,
+        id_request: Number(data[0].id_request),
+        engines: data[0].engines
+    }
+    data = data.filter(query => query.query !== result.query)
+    fs.writeFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, JSON.stringify(data))
+    return result
+}
+
 export function addQueryToQueue({ query, id_request, engines }) {
-    let filePath = `${appRoot}/lib/data`
+    let filePath = `${appRoot}/data`
     let data = JSON.parse(fs.readFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, 'utf-8'))
 
     data.push({
@@ -97,6 +97,7 @@ export function addQueryToQueue({ query, id_request, engines }) {
     })
     try {
         fs.writeFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, JSON.stringify(data))
+        log(`Запрос ${query} успешно добавлен в очередь`)
     } catch (err) {
         log(`Error: ${err}`)
         return {

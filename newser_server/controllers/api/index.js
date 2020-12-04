@@ -82,7 +82,8 @@ router.get('/getEngines', (req, res) => {
 })
 
 router.post('/addQuery', (req, res) => {
-    const data = req.body.data
+    const data = req.body
+    console.log(data)
     const result = addQueryToQueue(data)
     if (result.status) res.status(201).end(`Запрос ${data.query} успешно добавлен в очередь`)
     else res.status(500).end(`Не смог добавить запрос ${data.query}`)
