@@ -8,6 +8,8 @@ dotenv.config()
 import { log } from './src/utils'
 import { run } from './src/core/run'
 
+const reloadTime = 3600000
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const socket = io.connect(`http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
@@ -16,7 +18,7 @@ store.setSocket(socket)
 socket.emit("who_am_i", `mercury_${process.env.CUSTOM_NAME}`);
 log('Ожидаю команды СТАРТ', 0)
 
-socket.on('start', (data) => {
+socket.on('start', () => {
     console.log("Started")
     store.setIsGo(true)
     store.setStatus(1)
@@ -45,4 +47,4 @@ socket.on('disconnect', () => {
     process.exit(0)
 })
 
-setTimeout(() => process.exit(0), 3600000)
+setTimeout(process.exit(0), reloadTime) // Hotfix sleeping problem
