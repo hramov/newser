@@ -8,7 +8,7 @@ dotenv.config()
 import { log } from './src/utils'
 import { run } from './src/core/run'
 
-const reloadTime = 3600000
+const reloadTime = 600000
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
