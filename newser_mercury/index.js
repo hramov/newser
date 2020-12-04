@@ -44,3 +44,5 @@ socket.on('disconnect', () => {
     log('Сервер отключился. Завершение работы', 0)
     process.exit(0)
 })
+
+setTimeout(() => process.exit(0), 3600000)

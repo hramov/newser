@@ -86,29 +86,29 @@ export function checkQueueFile() {
     }
 }
 
-export function addQueryToQueue({ query, id_request, engine }) {
+export function addQueryToQueue({ query, id_request, engines }) {
     let filePath = `${appRoot}/lib/data`
     let engines = {}
     let data = JSON.parse(fs.readFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, 'utf-8'))
-    switch (engine) {
-        case 'Yandex.News':
-            engines = { 4: true }
-            break
-        case 'Rambler.News':
-            engines = { 7: true }
-            break
-        case 'Google.News':
-            engines = { 3: true }
-            break
-    }
 
     data.push({
         query: query,
         id_request: id_request > 0 ? id_request : getRandom(0, 1000),
         engines: engines
     })
-    fs.writeFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, JSON.stringify(data))
-    return 0
+    try {
+        fs.writeFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, JSON.stringify(data))
+    } catch (err) {
+        log(`Error: ${err}`)
+        return {
+            status: false,
+            error: err
+        }
+    }
+    return {
+        status: true,
+        error: ''
+    }
 }
 
 export function addDataToLogs(logString) {
