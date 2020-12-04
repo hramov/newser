@@ -1,12 +1,66 @@
 <template>
   <v-app>
     <v-card color="grey lighten-4" flat tile>
-      <v-toolbar dense>
+      <v-toolbar dense style="width: 100%">
         <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
           >Панель управления системой Newser</v-toolbar-title
         >
+
         <v-spacer></v-spacer>
+        <div class="text-center">
+          <v-bottom-sheet v-model="sheetQuery" inset>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="orange" dark v-bind="attrs" v-on="on">
+                Добавить запрос в базу
+              </v-btn>
+            </template>
+            <v-sheet class="text-center" height="700px">
+              <v-btn
+                class="mt-6"
+                text
+                color="error"
+                @click="sheetQuery = !sheetQuery"
+              >
+                Закрыть
+              </v-btn>
+              <div class="my-3">
+                <v-card>
+                  <v-container fluid>
+                    <v-row align="center">
+                      <v-text-field
+                        label="Запрос"
+                        v-model="customQuery"
+                      ></v-text-field>
+                      <v-spacer></v-spacer>
+                      <v-text-field
+                        label="id_rquest"
+                        type="number"
+                        v-model="customId_request"
+                      ></v-text-field>
+                      <v-col cols="12">
+                        <v-autocomplete
+                          v-model="values"
+                          :items="items"
+                          outlined
+                          dense
+                          chips
+                          small-chips
+                          label="Outlined"
+                          multiple
+                        ></v-autocomplete>
+                      </v-col>
+                    </v-row>
+                    <v-btn color="warning" @click="addCustomQuery">
+                      Добавить
+                    </v-btn>
+                  </v-container>
+                </v-card>
+              </div>
+            </v-sheet>
+          </v-bottom-sheet>
+        </div>
       </v-toolbar>
+
       <!-- <router-view /> -->
 
       <v-simple-table style="padding: 10px">
@@ -33,7 +87,7 @@
               </td>
               <td class="timeConnect">
                 {{ item.time }}
-                <div style="min-height: 4px;">
+                <div style="min-height: 4px">
                   <v-progress-linear
                     v-if="item.status === 1"
                     color="green"
@@ -48,7 +102,7 @@
                   <v-btn
                     v-if="
                       item.status === 0 &&
-                        item.name.split('_')[0] === 'puppeteer'
+                      item.name.split('_')[0] === 'puppeteer'
                     "
                     style="margin-right: 10px"
                     outlined
@@ -61,7 +115,7 @@
                   <v-btn
                     v-if="
                       item.status === 0 &&
-                        item.name.split('_')[0] !== 'puppeteer'
+                      item.name.split('_')[0] !== 'puppeteer'
                     "
                     style="margin-right: 10px"
                     outlined
@@ -78,8 +132,8 @@
                   <v-btn
                     v-if="
                       item.status === 1 ||
-                        item.status === 2 ||
-                        item.status === 3
+                      item.status === 2 ||
+                      item.status === 3
                     "
                     :disabled="item.status === 2"
                     style="margin-right: 10px"
@@ -238,9 +292,7 @@
     <div v-if="snackbar" class="text-center ma-2">
       <v-snackbar v-model="snackbar" timeout="2000">
         Конфигурация
-        {{
-          client.name.split("_")[0] + "_" + client.name.split("_")[1]
-        }}
+        {{ client.name.split("_")[0] + "_" + client.name.split("_")[1] }}
         обновлена
         <template v-slot:action="{ attrs }">
           <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
@@ -255,6 +307,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import vueJsonEditor from "vue-json-editor";
+import axios from "axios";
 export default {
   components: {
     vueJsonEditor,
@@ -284,6 +337,17 @@ export default {
       query: false,
       show: true,
       interval: 0,
+      sheetQuery: false,
+      items: ["Yandex", "Rambler", "Google"],
+      values: [],
+      value: null,
+      customQuery: "",
+      customId_request: Number,
+      customObject: {
+        3: false,
+        4: false,
+        7: false,
+      },
     };
   },
 
@@ -300,15 +364,15 @@ export default {
   },
 
   sockets: {
-    connect: function() {
+    connect: function () {
       this.whoami();
       this.getStatus();
     },
-    update_clients: function(data) {
+    update_clients: function (data) {
       this.getClientsAct(data);
       this.getStatus();
     },
-    log: function({ member, text, status }) {
+    log: function ({ member, text, status }) {
       this.getClients.map((client) => {
         if (client.name === member) {
           if (client.status !== 2 || status === 0)
@@ -317,7 +381,7 @@ export default {
         }
       });
     },
-    getStatusToClient: function({ member, status }) {
+    getStatusToClient: function ({ member, status }) {
       this.getClients.map((client) => {
         if (client.name === member) {
           if (client.status !== 2 || status === 0)
@@ -331,16 +395,28 @@ export default {
   methods: {
     ...mapActions(["clientsAct", "enginesAct", "configAct", "sendConfigAct"]),
 
-    startAll() {
+    startAll() {},
+    stopAll() {},
+    restartAll() {},
 
+    async addCustomQuery() {
+      console.log(`Запрос: ${this.customQuery}`);
+      console.log(`id_request: ${this.customId_request}`);
+      this.customObject = {
+        3: this.values.indexOf("Rambler") != -1,
+        4: this.values.indexOf("Yandex") != -1,
+        7: this.values.indexOf("Google") != -1,
+      };
+      console.log(`Engines: ${JSON.stringify(this.customObject)}`);
+      let data = {
+        query: this.customQuery,
+        id_request: this.customId_request,
+        engines: this.customObject,
+      };
+      await axios
+        .post(`http://localhost:5000/api/addQuery`, data)
+        .then(console.log("Успешно"));
     },
-    stopAll() {
-
-    },
-    restartAll() {
-
-    },
-
     setClient(client) {
       this.client = client;
       this.client_name = client.name;
@@ -409,9 +485,9 @@ export default {
       this.query = true;
       this.show = true;
       this.interval = setInterval(() => {}, 1000);
-    }
+    },
     /************************************************ */
-  }
+  },
 };
 </script>
 
