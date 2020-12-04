@@ -88,7 +88,6 @@ export function checkQueueFile() {
 
 export function addQueryToQueue({ query, id_request, engines }) {
     let filePath = `${appRoot}/lib/data`
-    let engines = {}
     let data = JSON.parse(fs.readFileSync(`${filePath}/${process.env.QUEUE_FILE}.json`, 'utf-8'))
 
     data.push({
