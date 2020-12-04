@@ -33,15 +33,6 @@ router.post('/setConfig', (req, res) => {
     else res.send('Error')
 })
 
-/** RabbitMQ API Section */
-// router.get('/getDataFromRabbitMQ/:queue', async(req, res) => {
-//     const queue = req.params.queue
-//     const result = await getData(queue)
-//     console.log(result)
-//     if (result.status) res.status(200).json(result.data)
-//     else res.status(201).end(`Ошибка отправки данных в очередь ${queue}: ${result.error}`)
-// })
-
 router.post('/sendDataToRabbitMQ', async(req, res) => {
     const queue = req.body.queue
     const data = req.body.data
@@ -69,7 +60,6 @@ router.post('/sendMercurySelectors', (req, res) => {
 })
 
 /*****Client area*********/
-
 router.get('/getEngines', (req, res) => {
 
     const engines = [
