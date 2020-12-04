@@ -47,4 +47,7 @@ socket.on('disconnect', () => {
     process.exit(0)
 })
 
-setTimeout(process.exit(0), reloadTime) // Hotfix sleeping problem
+setTimeout(() => {
+    log('Перезапускаю')
+    process.exit(0)
+}, reloadTime) // Hotfix sleeping problem
