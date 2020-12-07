@@ -5,7 +5,6 @@
         <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
           >Панель управления системой Newser</v-toolbar-title
         >
-
         <v-spacer></v-spacer>
         <div class="text-center">
           <v-bottom-sheet v-model="sheetQuery" inset>
